@@ -4,7 +4,8 @@ import itertools
 
 def run_executables(cmd, working_dir):
     try:
-        subprocess.check_output(cmd, shell=True, cwd=working_dir)
+        soutput = subprocess.check_output(cmd, shell=True, cwd=working_dir)
+        return soutput
     except subprocess.CalledProcessError as e:
         print e.output
         
