@@ -5,9 +5,7 @@ import numpy
 import os
 from datetime import datetime,timedelta
 
-
-def plot_the_domain(domain_name, plot_dir):
-    # setup Lambert Conformal basemap.
+def extract_the_domain(domain_name):
     m = Basemap(width=wrf_domain_config[domain_name]['common']['e_we']*wrf_domain_config[domain_name]['common']['dx'],
                 height=wrf_domain_config[domain_name]['common']['e_sn']*wrf_domain_config[domain_name]['common']['dy'],
                 projection='lcc',
@@ -16,6 +14,9 @@ def plot_the_domain(domain_name, plot_dir):
                 lat_2=wrf_domain_config[domain_name]['wps']['truelat2'],
                 lat_0=wrf_domain_config[domain_name]['wps']['ref_lat'],
                 lon_0=wrf_domain_config[domain_name]['wps']['ref_lon'])
+    return m, [m.llcrnrlat, m.llcrnrlon, m.urcrnrlat, m.urcrnrlon]
+    
+def plot_the_domain(m, plot_dir):
     # draw coastlines.
     m.drawcoastlines()
     # draw a boundary around the map, fill the background.
